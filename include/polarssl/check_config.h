@@ -282,7 +282,7 @@
 #define POLARSSL_THREADING_IMPL
 #endif
 
-#if defined(POLARSSL_THREADING_C) && !defined(POLARSSL_THREADING_IMPL)
+#if defined(POLARSSL_THREADING_C) && (!defined(POLARSSL_THREADING_IMPL) && !defined(POLARSSL_THREADING_WINTHREAD))
 #error "POLARSSL_THREADING_C defined, single threading implementation required"
 #endif
 #undef POLARSSL_THREADING_IMPL
