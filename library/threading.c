@@ -1,7 +1,7 @@
 /*
  *  Threading abstraction layer
  *
- *  Copyright (C) 2006-2013, Brainspark B.V.
+ *  Copyright (C) 2006-2014, Brainspark B.V.
  *
  *  This file is part of PolarSSL (http://www.polarssl.org)
  *  Lead Maintainer: Paul Bakker <polarssl_maintainer at polarssl.org>
@@ -83,58 +83,6 @@ int (*polarssl_mutex_free)( threading_mutex_t * ) = threading_mutex_free_pthread
 int (*polarssl_mutex_lock)( threading_mutex_t * ) = threading_mutex_lock_pthread;
 int (*polarssl_mutex_unlock)( threading_mutex_t * ) = threading_mutex_unlock_pthread;
 #endif /* POLARSSL_THREADING_PTHREAD */
-
-#if defined(POLARSSL_THREADING_WINTHREAD)
-static int threading_mutex_init_winthread( threading_mutex_t *mutex )
-{
-    if( mutex == NULL )
-        return( POLARSSL_ERR_THREADING_BAD_INPUT_DATA );
-
-    if( ( mutex = CreateMutex( NULL, FALSE, NULL ) ) == 0 )
-        return( POLARSSL_ERR_THREADING_MUTEX_ERROR );
-
-    return( 0 );
-}
-
-static int threading_mutex_free_winthread( threading_mutex_t *mutex )
-{
-    if( mutex == NULL )
-        return( POLARSSL_ERR_THREADING_BAD_INPUT_DATA );
-
-    if( CloseHandle( mutex ) == 0 )
-        return( POLARSSL_ERR_THREADING_MUTEX_ERROR );
-
-    return( 0 );
-}
-
-static int threading_mutex_lock_winthread( threading_mutex_t *mutex )
-{
-    if( mutex == NULL )
-        return( POLARSSL_ERR_THREADING_BAD_INPUT_DATA );
-
-    if( WaitForSingleObject( mutex, INFINITE ) == 0 )
-        return( POLARSSL_ERR_THREADING_MUTEX_ERROR );
-
-    return( 0 );
-}
-
-static int threading_mutex_unlock_winthread( threading_mutex_t *mutex )
-{
-    if( mutex == NULL )
-        return( POLARSSL_ERR_THREADING_BAD_INPUT_DATA );
-
-    if( ReleaseMutex( mutex ) == 0 )
-        return( POLARSSL_ERR_THREADING_MUTEX_ERROR );
-
-    return( 0 );
-}
-
-int (*polarssl_mutex_init)( threading_mutex_t * ) = threading_mutex_init_winthread;
-int (*polarssl_mutex_free)( threading_mutex_t * ) = threading_mutex_free_winthread;
-int (*polarssl_mutex_lock)( threading_mutex_t * ) = threading_mutex_lock_winthread;
-int (*polarssl_mutex_unlock)( threading_mutex_t * ) = threading_mutex_unlock_winthread;
-
-#endif /* POLARSSL_THREADING_WINTHREAD */
 
 #if defined(POLARSSL_THREADING_ALT)
 static int threading_mutex_fail( threading_mutex_t *mutex )

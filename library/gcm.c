@@ -354,7 +354,7 @@ int gcm_update( gcm_context *ctx,
     /* Total length is restricted to 2^39 - 256 bits, ie 2^36 - 2^5 bytes
      * Also check for possible overflow */
     if( ctx->len + length < ctx->len ||
-        (uint64_t) ctx->len + length > (unsigned int)0x03FFFFE0ll )
+        (uint64_t) ctx->len + length > 0x03FFFFE0llu )
     {
         return( POLARSSL_ERR_GCM_BAD_INPUT );
     }
