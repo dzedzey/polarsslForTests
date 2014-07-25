@@ -976,6 +976,17 @@
 //#define POLARSSL_THREADING_PTHREAD
 
 /**
+ * \def POLARSSL_THREADING_WINTHREAD
+ *
+ * Enable the Windows thread wrapper layer for the threading layer.
+ *
+ * Requires: POLARSSL_THREADING_C
+ *
+ * Uncomment this to enable Windows threading mutexes.
+ */
+//#define POLARSSL_THREADING_WINTHREAD
+
+/**
  * \def POLARSSL_VERSION_FEATURES
  *
  * Allow run-time checking of compile-time enabled features. Thus allowing users
