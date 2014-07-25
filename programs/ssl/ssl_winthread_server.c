@@ -1,5 +1,5 @@
 /*
- *  SSL server demonstration program using pthread for handling multiple
+ *  SSL server demonstration program using Windows thread for handling multiple
  *  clients.
  *
  *  Copyright (C) 2006-2013, Brainspark B.V.
@@ -69,7 +69,7 @@ int main( int argc, char *argv[] )
            "and/or POLARSSL_SSL_TLS_C and/or POLARSSL_SSL_SRV_C and/or "
            "POLARSSL_NET_C and/or POLARSSL_RSA_C and/or "
            "POLARSSL_CTR_DRBG_C and/or POLARSSL_X509_CRT_PARSE_C and/or "
-           "POLARSSL_THREADING_C and/or POLARSSL_THREADING_PTHREAD "
+           "POLARSSL_THREADING_C and/or POLARSSL_THREADING_WINTHREAD"
            "not defined.\n");
     return( 0 );
 }
@@ -111,12 +111,12 @@ typedef struct {
     int active;
     thread_info_t   data;
     HANDLE			thread;
-} pthread_info_t;
+} winthread_info_t;
 
 #define MAX_NUM_THREADS 5
 
 static thread_info_t    base_info;
-static pthread_info_t   threads[MAX_NUM_THREADS];
+static winthread_info_t   threads[MAX_NUM_THREADS];
 
 static void *handle_ssl_connection( void *data )
 {
@@ -327,7 +327,7 @@ static int thread_create( int client_fd )
         {
             printf( "  [ main ]  Cleaning up thread %d\n", i );
             WaitForSingleObject(threads[i].thread, INFINITE );
-            memset( &threads[i], 0, sizeof(pthread_info_t) );
+            memset( &threads[i], 0, sizeof(winthread_info_t) );
             break;
         }
     }
@@ -507,4 +507,4 @@ exit:
 #endif /* POLARSSL_BIGNUM_C && POLARSSL_CERTS_C && POLARSSL_ENTROPY_C &&
           POLARSSL_SSL_TLS_C && POLARSSL_SSL_SRV_C && POLARSSL_NET_C &&
           POLARSSL_RSA_C && POLARSSL_CTR_DRBG_C && POLARSSL_THREADING_C &&
-          POLARSSL_THREADING_PTHREAD */
+          POLARSSL_THREADING_WINTHREAD */

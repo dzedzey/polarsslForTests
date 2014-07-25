@@ -55,7 +55,6 @@ typedef pthread_mutex_t threading_mutex_t;
 typedef HANDLE threading_mutex_t;
 #endif
 
-
 #if defined(POLARSSL_THREADING_ALT)
 /* You should define the threading_mutex_t type in your header */
 #include "threading_alt.h"

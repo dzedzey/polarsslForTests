@@ -962,9 +962,9 @@
  *
  * Requires: POLARSSL_THREADING_C
  *
- * Uncomment this to enable pthread mutexes.
+ * Uncomment this to enable Windows threading mutexes.
  */
-#define POLARSSL_THREADING_WINTHREAD
+//#define POLARSSL_THREADING_WINTHREAD
 
 /**
  * \def POLARSSL_VERSION_FEATURES
@@ -1925,7 +1925,7 @@
  *
  * Enable this layer to allow use of mutexes within PolarSSL
  */
-#define POLARSSL_THREADING_C
+//#define POLARSSL_THREADING_C
 
 /**
  * \def POLARSSL_TIMING_C
